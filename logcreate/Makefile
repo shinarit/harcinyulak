@@ -1,7 +1,7 @@
 CC = g++
 CPP = $(CC)
 
-OBJS = main.o
+OBJS = main.o controller.o map.o bunny.o
 
 ifdef SystemRoot
   RM = del /Q /S

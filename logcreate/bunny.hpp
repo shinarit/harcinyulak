@@ -5,10 +5,12 @@
 class Bunny
 {
 public:
-  Bunny(const Vektor& position);
+  Bunny();
 
   Vektor position() const;
 
 private:
-  Vektor m_position;
+  Vektor  m_position;
+
+  bool    m_alive;
 };

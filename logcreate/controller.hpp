@@ -1,6 +1,7 @@
 #pragma once
 
 #include "vektor.hpp"
+#include "time.hpp"
 
 class Bunny;
 
@@ -30,6 +31,9 @@ public:
   Command decideCommand();
 
 protected:
+  Controller(const Controller&) = delete;
+  Controller& operator=(const Controller&) = delete;
+
   virtual Command decideCommandInner() = 0;
   Controller(Bunny* myBunny);
 
@@ -41,5 +45,5 @@ protected:
 private:
   Bunny* m_myBunny;
 
-  static const Time thinkingLimit = 0.2;
+  static const Time thinkingLimit;
 };

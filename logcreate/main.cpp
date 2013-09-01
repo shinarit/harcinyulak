@@ -2,6 +2,7 @@
 
 #include "vektor.hpp"
 #include "bunny.hpp"
+#include "map.hpp"
 
 #include <sstream>
 #include <cstdlib>
@@ -13,6 +14,7 @@
 struct Options
 {
   int bunnySize = 50;
+  int bushSize = 100;
   Vektor mapSize = {1000, 1000};
   std::string logFile = "-";
 };
@@ -113,5 +115,17 @@ void runGame(const Options& options)
     logStream.reset(new std::ofstream(options.logFile.c_str()));
   }
 
-  
+  Map map(options.mapSize, options.bushSize, 5);
+  bool goalReached(false);
+  while (!goalReached)
+  {
+    /*
+    map.spawnBunnies();
+    auto stats(map.getStatuses());
+    map.moveBunnies();
+    map.shootGuns();
+    map.moveBullets();
+    map.killBunnies();
+    */
+  }
 }
