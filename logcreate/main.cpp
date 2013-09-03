@@ -127,5 +127,6 @@ void runGame(const Options& options)
     map.moveBullets();
     map.killBunnies();
     */
+    break;
   }
 }
