@@ -14,8 +14,7 @@ void Map::generateBushes(int num)
   std::srand(std::time(0));
   for (int i(0); i < num; ++i)
   {
-    Bush bush = {{std::rand() % m_size.x, std::rand() % m_size.y}, m_bushSize};
+    Bush bush{{std::rand() % m_size.x, std::rand() % m_size.y}, m_bushSize};
     m_bushes.push_back(bush);
   }
 }
-
