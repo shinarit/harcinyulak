@@ -7,10 +7,11 @@ class Bunny
 public:
   Bunny();
 
-  Vektor position() const;
+  void spawn(Vektor position, Vektor direction);
 
 private:
   Vektor  m_position;
+  Vektor  m_direction;
 
   bool    m_alive;
 };

@@ -1,16 +1,23 @@
 #include "controller.hpp"
 #include "time.hpp"
 
-const Time Controller::thinkingLimit = 0.2;
+const Controller::Interval Controller::THINKING_LIMIT(200);
 
 Controller::Command Controller::decideCommand()
 {
-  Time start(currentTime());
+  if (!m_currentRun)
+  {
+    m_currentRun = new Decider(std::async(std::bind(&Controller::decideCommandInner, this)));
+  }
+
+  //Time start(currentTime());
   Command command(decideCommandInner());
-  if (start - currentTime() > thinkingLimit)
+  /*
+  if (start - currentTime() > THINKING_LIMIT)
   {
     command.type = Command::CommandType::SUICIDE;
   }
+  */
   return command;
 }
 

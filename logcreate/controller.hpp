@@ -1,7 +1,9 @@
 #pragma once
 
+#include <future>
+#include <chrono>
+
 #include "vektor.hpp"
-#include "time.hpp"
 
 class Bunny;
 
@@ -26,14 +28,13 @@ public:
     Shot shot;
   };
 
+  Controller(const Controller&) = delete;
+  Controller& operator=(const Controller&) = delete;
   virtual ~Controller() {}
 
   Command decideCommand();
 
 protected:
-  Controller(const Controller&) = delete;
-  Controller& operator=(const Controller&) = delete;
-
   virtual Command decideCommandInner() = 0;
   Controller(Bunny* myBunny);
 
@@ -43,7 +44,12 @@ protected:
   }
 
 private:
-  Bunny* m_myBunny;
+  typedef std::chrono::milliseconds Interval;
 
-  static const Time thinkingLimit;
+  static const Interval THINKING_LIMIT;
+
+  typedef std::future<Command> Decider;
+  //typedef std::function<Command()>
+  Decider*  m_currentRun;
+  Bunny*    m_myBunny;
 };
