@@ -45,11 +45,12 @@ protected:
 
 private:
   typedef std::chrono::milliseconds Interval;
+  typedef std::future<Command> Decider;
 
   static const Interval THINKING_LIMIT;
 
-  typedef std::future<Command> Decider;
-  //typedef std::function<Command()>
-  Decider*  m_currentRun;
-  Bunny*    m_myBunny;
+  Decider         m_currentRun;
+  bool            m_currentlyRunning = false;
+  Bunny*          m_myBunny;
+  bool            m_decideTimouted = false;
 };

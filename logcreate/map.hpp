@@ -4,6 +4,7 @@
 #include "bunny.hpp"
 
 #include <vector>
+#include <ostream>
 
 struct Bush
 {
@@ -18,6 +19,8 @@ public:
   typedef std::vector<Bunny> BunnyList;
 
   Map(Vektor size, int bushSize, int bunnyNum);
+
+  void logMap(std::ostream& out);
 
 private:
   void generateBushes(int num);

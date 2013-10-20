@@ -3,6 +3,7 @@
 #include "vektor.hpp"
 #include "bunny.hpp"
 #include "map.hpp"
+#include "custom_init.hpp"
 
 #include <sstream>
 #include <cstdlib>
@@ -115,7 +116,9 @@ void runGame(const Options& options)
     logStream.reset(new std::ofstream(options.logFile.c_str()));
   }
 
+  ControllerArray controllers(createControllers());
   Map map(options.mapSize, options.bushSize, 5);
+  map.logMap(*logStream);
   bool goalReached(false);
   while (!goalReached)
   {

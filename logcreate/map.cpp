@@ -9,6 +9,12 @@ Map::Map(Vektor size, int bushSize, int bunnyNum): m_size(size), m_bushSize(bush
   generateBushes(5);
 }
 
+void Map::logMap(std::ostream& out)
+{
+  out << m_size << '\n';
+}
+
+
 void Map::generateBushes(int num)
 {
   std::srand(std::time(0));
