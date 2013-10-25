@@ -7,6 +7,7 @@
 
 #include <sstream>
 #include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include <string>
 #include <memory>
@@ -25,6 +26,8 @@ void runGame(const Options& options);
 
 int main(int argc, char* argv[])
 {
+  std::srand(std::time(0));
+
   Options options;
 
   if (parseCommandLine(argc, argv, options))
@@ -117,13 +120,12 @@ void runGame(const Options& options)
   }
 
   ControllerArray controllers(createControllers());
-  Map map(options.mapSize, options.bushSize, 5);
+  Map map(options.mapSize, options.bushSize, controllers.size(), options.bunnySize);
   map.logMap(*logStream);
   bool goalReached(false);
   while (!goalReached)
   {
     /*
-    map.spawnBunnies();
     auto stats(map.getStatuses());
     map.moveBunnies();
     map.shootGuns();

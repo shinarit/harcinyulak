@@ -1,7 +1,8 @@
 CC = g++
 CPP = $(CC)
 
-OBJS = main.o controller.o map.o bunny.o
+OBJS = main.o controller.o map.o bunny.o custom_init.o
+CONTROLLERS = 
 
 ifdef SystemRoot
   RM = del /Q /S
@@ -23,7 +24,7 @@ default: nyuszik
 
 all: nyuszik
 
-nyuszik: $(OBJS)
+nyuszik: $(OBJS) $(CONTROLLERS)
 	$(CPP) -g -o nyuszik $(OBJS) $(LIBS)
 
 %.o: %.cpp

@@ -5,7 +5,23 @@
 struct Vektor
 {
   typedef int MeasureType;
-  MeasureType x, y;
+  Vektor() { invalidate(); }
+  Vektor(MeasureType x, MeasureType y): x(x), y(y) {}
+  MeasureType x;
+  MeasureType y;
+
+  bool valid() const
+  {
+    return x == Vektor::INVALID_VALUE || y == Vektor::INVALID_VALUE;
+  }
+
+  void invalidate()
+  {
+    x = Vektor::INVALID_VALUE;
+  }
+
+private:
+  static const MeasureType INVALID_VALUE = INT_MAX;
 };
 
 inline bool operator<(const Vektor& lhs, const Vektor& rhs)
@@ -14,7 +30,11 @@ inline bool operator<(const Vektor& lhs, const Vektor& rhs)
 }
 
 inline std::ostream& operator<<(std::ostream& out, Vektor v)
-  {
+{
   return out << v.x << ' ' << v.y;
 }
 
+inline int distanceSqr(const Vektor& lhs, const Vektor& rhs)
+{
+  return (lhs.x - rhs.x) * (lhs.x - rhs.x) + (lhs.y - rhs.y) * (lhs.y - rhs.y);
+}

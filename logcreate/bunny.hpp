@@ -9,6 +9,16 @@ public:
 
   void spawn(Vektor position, Vektor direction);
 
+  bool alive() const
+  {
+    return m_alive;
+  }
+
+  Vektor position() const
+  {
+    return m_position;
+  }
+
 private:
   Vektor  m_position;
   Vektor  m_direction;
