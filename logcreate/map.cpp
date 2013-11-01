@@ -24,7 +24,7 @@ void Map::spawnBunny(int bunnyIndex)
 
 void Map::logMap(std::ostream& out)
 {
-  out << m_size << '\n';
+  out << "map " << m_size << ' ';
   for (Bush& bush: m_bushes)
   {
     out << bush.center << ' ' << bush.size << ' ';

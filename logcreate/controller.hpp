@@ -36,12 +36,7 @@ public:
 
 protected:
   virtual Command decideCommandInner() = 0;
-  Controller(Bunny* myBunny);
-
-  const Bunny* bunny()
-  {
-    return m_myBunny;
-  }
+  Controller();
 
 private:
   typedef std::chrono::milliseconds Interval;
@@ -51,6 +46,5 @@ private:
 
   Decider         m_currentRun;
   bool            m_currentlyRunning = false;
-  Bunny*          m_myBunny;
-  bool            m_decideTimouted = false;
+  bool            m_decisionTimouted = false;
 };

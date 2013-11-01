@@ -16,18 +16,18 @@ Controller::Command Controller::decideCommand()
   Command command;
   if (m_currentRun.wait_for(THINKING_LIMIT) == std::future_status::timeout)
   {
-    m_decideTimouted = true;
+    m_decisionTimouted = true;
     command.type = Command::CommandType::SUICIDE;
   }
   else
   {
-    if (m_decideTimouted)
+    if (m_decisionTimouted)
     command = m_currentRun.get();
   }
 
   return command;
 }
 
-Controller::Controller(Bunny* myBunny): m_myBunny(myBunny)
+Controller::Controller()
 {
 }
