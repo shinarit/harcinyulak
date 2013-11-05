@@ -4,6 +4,7 @@
 #include "bunny.hpp"
 #include "map.hpp"
 #include "custom_init.hpp"
+#include "endgame_condition.hpp"
 
 #include <sstream>
 #include <cstdlib>
@@ -122,8 +123,8 @@ void runGame(const Options& options)
   ControllerArray controllers(createControllers());
   Map map(options.mapSize, options.bushSize, controllers.size(), options.bunnySize);
   map.logMap(*logStream);
-  bool goalReached(false);
-  while (!goalReached)
+  EndgameCondition::ConditionPtr endgame(new TimeoutEngameCondition(20));
+  while (!endgame->itIsOver())
   {
     /*
     auto stats(map.getStatuses());
