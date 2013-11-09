@@ -28,7 +28,7 @@ public:
 
   virtual bool itIsOverInner()
   {
-    return m_currTime >= m_timeLimit;
+    return m_currTime++ >= m_timeLimit;
   }
 
 private:
