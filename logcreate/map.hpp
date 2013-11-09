@@ -60,6 +60,6 @@ private:
   int           m_bunnySize;
   std::ostream& m_out;
 
-  BushList  m_bushes;
-  BunnyList m_bunnies;
+  BushList      m_bushes;
+  BunnyList     m_bunnies;
 };

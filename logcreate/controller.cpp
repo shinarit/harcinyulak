@@ -3,11 +3,11 @@
 
 const Controller::Interval Controller::THINKING_LIMIT(200);
 
-Controller::Command Controller::decideCommand()
+Controller::Command Controller::decideCommand(const Map::BunnyState& state)
 {
   if (!m_currentlyRunning)
   {
-    m_currentRun = Decider(std::async(std::bind(&Controller::decideCommandInner, this)));
+    m_currentRun = Decider(std::async(std::bind(&Controller::decideCommandInner, this, state)));
   }
   else
   {

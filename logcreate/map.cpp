@@ -25,7 +25,12 @@ void Map::spawnBunny(int bunnyIndex)
 
 Map::StateList Map::getBunnyStates() const
 {
-  return StateList{};
+  StateList res;
+  for (const auto& bunny : m_bunnies)
+  {
+    res.push_back(BunnyState{ bunny });
+  }
+  return res;
 }
 
 void Map::logMap()

@@ -3,6 +3,7 @@
 #include <future>
 #include <chrono>
 
+#include "map.hpp"
 #include "vektor.hpp"
 
 class Bunny;
@@ -32,10 +33,10 @@ public:
   Controller& operator=(const Controller&) = delete;
   virtual ~Controller() {}
 
-  Command decideCommand();
+  Command decideCommand(const Map::BunnyState& state);
 
 protected:
-  virtual Command decideCommandInner() = 0;
+  virtual Command decideCommandInner(const Map::BunnyState& state) = 0;
   Controller();
 
 private:

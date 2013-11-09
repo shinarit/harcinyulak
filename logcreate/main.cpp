@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include <fstream>
+#include <vector>
 
 #include "commandline_options.hpp"
 #include "vektor.hpp"
@@ -57,6 +58,12 @@ void runGame(const Options& options)
   {
     std::cout << "E!\n";
     auto stats(map.getBunnyStates());
+    std::vector<Controller::Command> issuedCommands;
+    for (int i(0); i < stats.size(); ++i)
+    {
+      issuedCommands.push_back(controllers[i]->decideCommand(stats[i]));
+    }
+
     /*
     map.moveBunnies();
     map.shootGuns();
