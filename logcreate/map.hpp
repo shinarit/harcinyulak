@@ -15,23 +15,50 @@ struct Bush
 class Map
 {
 public:
+  struct BunnyState
+  {
+    BunnyState(const Bunny& bunny): myBunny(bunny)
+    { }
+    struct BunnyOutsideWrapper
+    {
+    public:
+      BunnyOutsideWrapper(const Bunny& bunny): bunny(bunny)
+      { }
+      Vektor position() const
+      {
+        return bunny.position();
+      }
+      Vektor direction() const
+      {
+        return bunny.direction();
+      }
+
+    private:
+      const Bunny& bunny;
+    };
+    const Bunny& myBunny;
+  };
+
   typedef std::vector<Bush> BushList;
   typedef std::vector<Bunny> BunnyList;
+  typedef std::vector<BunnyState> StateList;
 
-  Map(Vektor size, int bushSize, int bunnyNum, int bunnySize);
+  Map(Vektor size, int bushSize, int bunnyNum, int bunnySize, std::ostream& out);
 
   void spawnBunny(int bunnyIndex);
+  StateList getBunnyStates() const;
 
-  void logMap(std::ostream& out);
 
 private:
+  void logMap();
   void generateBushes(int num);
 
   bool circleHaveNoIntersection(Vektor center, int radius);
 
-  Vektor    m_size;
-  int    m_bushSize;
-  int    m_bunnySize;
+  Vektor        m_size;
+  int           m_bushSize;
+  int           m_bunnySize;
+  std::ostream& m_out;
 
   BushList  m_bushes;
   BunnyList m_bunnies;

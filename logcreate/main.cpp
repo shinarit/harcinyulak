@@ -1,11 +1,3 @@
-#include <getopt.h>
-
-#include "vektor.hpp"
-#include "bunny.hpp"
-#include "map.hpp"
-#include "custom_init.hpp"
-#include "endgame_condition.hpp"
-
 #include <sstream>
 #include <cstdlib>
 #include <ctime>
@@ -14,15 +6,13 @@
 #include <memory>
 #include <fstream>
 
-struct Options
-{
-  int bunnySize = 50;
-  int bushSize = 100;
-  Vektor mapSize = {1000, 1000};
-  std::string logFile = "-";
-};
+#include "commandline_options.hpp"
+#include "vektor.hpp"
+#include "bunny.hpp"
+#include "map.hpp"
+#include "custom_init.hpp"
+#include "endgame_condition.hpp"
 
-bool parseCommandLine(int argc, char* argv[], Options& options);
 void runGame(const Options& options);
 
 int main(int argc, char* argv[])
@@ -35,66 +25,6 @@ int main(int argc, char* argv[])
   {
     runGame(options);
   }
-}
-
-option OPTION_BUNNY_SIZE  = {"bunny_size", required_argument, 0, 'b'};
-option OPTION_MAP_SIZE    = {"map_size", required_argument, 0, 's'};
-option OPTION_LOGFILE     = {"logfile", required_argument, 0, 'l'};
-
-bool parseCommandLine(int argc, char* argv[], Options& options)
-{
-  option longOptions[] = {
-    OPTION_BUNNY_SIZE,
-    OPTION_MAP_SIZE,
-    OPTION_LOGFILE
-  };
-
-  int optionIndex;
-  int c;
-  while (-1 != (c = getopt_long(argc, argv, "s:l:", longOptions, &optionIndex)))
-  {
-    switch (c)
-    {
-      case 'b':
-      {
-        options.bunnySize = std::atoi(optarg);
-
-        break;
-      }
-      case 's':
-      {
-        int width;
-        int height;
-        char c;
-        std::istringstream str(optarg);
-        str >> width >> c >> height;
-
-        if (str.fail())
-        {
-          std::cerr << "Invalid argument for --" << OPTION_MAP_SIZE.name << ": " << optarg << ".\n";
-
-          return false;
-        }
-
-        options.mapSize.x = width;
-        options.mapSize.y = height;
-
-        break;
-      }
-      case 'l':
-      {
-        options.logFile = optarg;
-
-        break;
-      }
-      case '?':
-      {
-        return false;
-      }
-
-    }
-  }
-  return true;
 }
 
 struct DeleteIfNotStdOut
@@ -121,13 +51,13 @@ void runGame(const Options& options)
   }
 
   ControllerArray controllers(createControllers());
-  Map map(options.mapSize, options.bushSize, controllers.size(), options.bunnySize);
-  map.logMap(*logStream);
+  Map map(options.mapSize, options.bushSize, controllers.size(), options.bunnySize, *logStream);
   EndgameCondition::ConditionPtr endgame(new TimeoutEngameCondition(20));
   while (!endgame->itIsOver())
   {
+    std::cout << "E!\n";
+    auto stats(map.getBunnyStates());
     /*
-    auto stats(map.getStatuses());
     map.moveBunnies();
     map.shootGuns();
     map.moveBullets();

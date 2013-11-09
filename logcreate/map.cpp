@@ -3,13 +3,14 @@
 #include <cstdlib>
 #include <iterator>
 
-Map::Map(Vektor size, int bushSize, int bunnyNum, int bunnySize): m_size(size), m_bushSize(bushSize), m_bunnySize(bunnySize), m_bunnies(bunnyNum)
+Map::Map(Vektor size, int bushSize, int bunnyNum, int bunnySize, std::ostream& out): m_size(size), m_bushSize(bushSize), m_bunnySize(bunnySize), m_out(out), m_bunnies(bunnyNum)
 {
   generateBushes(5);
   for (int i(0); i < m_bunnies.size(); ++i)
   {
     spawnBunny(i);
   }
+  logMap();
 }
 
 void Map::spawnBunny(int bunnyIndex)
@@ -22,14 +23,19 @@ void Map::spawnBunny(int bunnyIndex)
   m_bunnies[bunnyIndex].spawn(pos, Vektor{0, 0});
 }
 
-void Map::logMap(std::ostream& out)
+Map::StateList Map::getBunnyStates() const
 {
-  out << "map " << m_size << ' ';
+  return StateList{};
+}
+
+void Map::logMap()
+{
+  m_out << "map " << m_size << ' ';
   for (Bush& bush: m_bushes)
   {
-    out << bush.center << ' ' << bush.size << ' ';
+    m_out << bush.center << ' ' << bush.size << ' ';
   }
-  out << '\n';
+  m_out << '\n';
 }
 
 

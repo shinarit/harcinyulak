@@ -1,7 +1,7 @@
 CC = g++
 CPP = $(CC)
 
-OBJS = main.o controller.o map.o bunny.o custom_init.o
+OBJS = main.o controller.o map.o bunny.o custom_init.o commandline_options.o
 CONTROLLERS = 
 
 ifdef SystemRoot

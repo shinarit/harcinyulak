@@ -18,6 +18,10 @@ public:
   {
     return m_position;
   }
+  Vektor direction() const
+  {
+    return m_direction;
+  }
 
 private:
   Vektor  m_position;
