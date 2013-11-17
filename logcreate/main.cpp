@@ -13,6 +13,7 @@
 #include "map.hpp"
 #include "custom_init.hpp"
 #include "endgame_condition.hpp"
+#include "command.hpp"
 
 void runGame(const Options& options);
 
@@ -39,6 +40,34 @@ struct DeleteIfNotStdOut
   }
 };
 
+void printCommands(const CommandList& commands, std::ostream& out)
+{
+  for (const auto& command : commands)
+  {
+    out << "command: " << int(command.type);
+    switch (command.type)
+    {
+      case Command::CommandType::SUICIDE:
+      {
+        break;
+      }
+      case Command::CommandType::MOVE:
+      {
+        out << command.move;
+      }
+      case Command::CommandType::SHOOT:
+      {
+        out << command.shot;
+      }
+      case Command::CommandType::MOVE_AND_SHOOT:
+      {
+        out << command.move << ' ' << command.shot;
+      }
+    }
+    out << '\n';
+  }
+}
+
 void runGame(const Options& options)
 {
   std::unique_ptr<std::ostream, DeleteIfNotStdOut> logStream;
@@ -58,18 +87,13 @@ void runGame(const Options& options)
   {
     std::cout << "E!\n";
     auto stats(map.getBunnyStates());
-    std::vector<Controller::Command> issuedCommands;
+    CommandList issuedCommands;
     for (int i(0); i < stats.size(); ++i)
     {
       issuedCommands.push_back(controllers[i]->decideCommand(stats[i]));
     }
+    printCommands(issuedCommands, *logStream);
 
-    /*
-    map.moveBunnies();
-    map.shootGuns();
-    map.moveBullets();
-    map.killBunnies();
-    */
-//    break;
+    map.executeCommands(issuedCommands);
   }
 }

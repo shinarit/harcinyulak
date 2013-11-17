@@ -3,7 +3,7 @@
 
 const Controller::Interval Controller::THINKING_LIMIT(200);
 
-Controller::Command Controller::decideCommand(const Map::BunnyState& state)
+Command Controller::decideCommand(const Map::BunnyState& state)
 {
   if (!m_currentlyRunning)
   {

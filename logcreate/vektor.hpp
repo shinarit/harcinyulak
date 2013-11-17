@@ -20,6 +20,13 @@ struct Vektor
     x = Vektor::INVALID_VALUE;
   }
 
+  Vektor& operator+=(const Vektor& v)
+  {
+    x += v.x;
+    y += v.y;
+    return *this;
+  }
+
 private:
   static const MeasureType INVALID_VALUE = INT_MAX;
 };

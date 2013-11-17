@@ -2,6 +2,7 @@
 
 #include "vektor.hpp"
 #include "bunny.hpp"
+#include "command.hpp"
 
 #include <vector>
 #include <ostream>
@@ -47,11 +48,15 @@ public:
 
   void spawnBunny(int bunnyIndex);
   StateList getBunnyStates() const;
-
+  void executeCommands(const CommandList&);
 
 private:
   void logMap();
+  void logBunny(int bunnyIndex);
+  void logBunnyMove(int bunnyIndex);
   void generateBushes(int num);
+
+  void moveBunnies(const CommandList& commands);
 
   bool circleHaveNoIntersection(Vektor center, int radius);
 

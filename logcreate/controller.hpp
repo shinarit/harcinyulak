@@ -2,33 +2,17 @@
 
 #include <future>
 #include <chrono>
+#include <vector>
 
 #include "map.hpp"
 #include "vektor.hpp"
+#include "command.hpp"
 
 class Bunny;
 
 class Controller
 {
 public:
-  struct Command
-  {
-    enum class CommandType
-    {
-      SUICIDE,
-      MOVE,
-      SHOOT,
-      MOVE_AND_SHOOT
-    };
-    typedef Vektor Move;
-    typedef Vektor Shot;
-
-    CommandType type;
-
-    Move move;
-    Shot shot;
-  };
-
   Controller(const Controller&) = delete;
   Controller& operator=(const Controller&) = delete;
   virtual ~Controller() {}

@@ -15,7 +15,7 @@ protected:
   virtual Command decideCommandInner(const Map::BunnyState& state)
   {
     std::this_thread::sleep_for(std::chrono::milliseconds(m_thinkingTime));
-    return Command{Controller::Command::CommandType::MOVE_AND_SHOOT, {100, 100}, {100, 100}};
+    return Command{Command::CommandType::MOVE_AND_SHOOT, {100, 100}, {100, 100}};
   }
 private:
   int m_thinkingTime;

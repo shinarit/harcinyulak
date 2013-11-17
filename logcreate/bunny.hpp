@@ -23,6 +23,11 @@ public:
     return m_direction;
   }
 
+  void move(const Vektor& speed)
+  {
+    m_position += speed;
+  }
+
 private:
   Vektor  m_position;
   Vektor  m_direction;
